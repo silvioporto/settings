@@ -141,7 +141,7 @@ sudo umount /mnt/usb
 
 echo ""
 echo "=========================================="
-echo "Step 9: Configure WiFi autoconnect"
+echo "Step 9: Configure WiFi autoconnect and ssh"
 echo "=========================================="
 
 # Mount USB root temporarily to chroot inside
@@ -157,12 +157,17 @@ nmcli connection modify 'CERMOB_POS' wifi-sec.key-mgmt wpa-psk
 nmcli connection modify 'CERMOB_POS' 802-11-wireless-security.psk 'cermobpos123'
 "
 
+sudo chroot /mnt/usb /bin/bash -c "
+apt update
+apt install -y openssh-server
+systemctl enable ssh
+"
+
 # Cleanup mounts
 sudo umount /mnt/usb/dev
 sudo umount /mnt/usb/proc
 sudo umount /mnt/usb/sys
 sudo umount /mnt/usb
-
 
 echo ""
 echo "=========================================="
