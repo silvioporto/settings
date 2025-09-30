@@ -141,6 +141,31 @@ sudo umount /mnt/usb
 
 echo ""
 echo "=========================================="
+echo "Step 9: Configure WiFi autoconnect"
+echo "=========================================="
+
+# Mount USB root temporarily to chroot inside
+sudo mount /dev/sda2 /mnt/usb
+sudo mount --bind /dev /mnt/usb/dev
+sudo mount --bind /proc /mnt/usb/proc
+sudo mount --bind /sys /mnt/usb/sys
+
+sudo chroot /mnt/usb /bin/bash -c "
+nmcli dev wifi connect 'CERMOB_POS' password 'cermobpos123'
+nmcli connection modify 'CERMOB_POS' connection.autoconnect yes
+nmcli connection modify 'CERMOB_POS' wifi-sec.key-mgmt wpa-psk
+nmcli connection modify 'CERMOB_POS' 802-11-wireless-security.psk 'cermobpos123'
+"
+
+# Cleanup mounts
+sudo umount /mnt/usb/dev
+sudo umount /mnt/usb/proc
+sudo umount /mnt/usb/sys
+sudo umount /mnt/usb
+
+
+echo ""
+echo "=========================================="
 echo "Setup Complete!"
 echo "=========================================="
 echo ""
