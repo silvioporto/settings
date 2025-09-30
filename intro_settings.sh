@@ -1,10 +1,10 @@
 set xkbmap -layout br -variant abnt2
 sudo localectl set-x11-keymap br abnt2
 
-nmcli dev wifi connect  "CERMOB_POS_Wi-Fi5" password "cermobpos123"
-nmcli connection modify "CERMOB_POS_Wi-Fi5" connection.autoconnect yes
-nmcli connection modify "CERMOB_POS_Wi-Fi5" wifi-sec.key-mgmt wpa-psk
-nmcli connection modify "CERMOB_POS_Wi-Fi5" 802-11-wireless-security.psk "cermobpos123"
+nmcli dev wifi connect  "CERMOB_POS" password "cermobpos123"
+nmcli connection modify "CERMOB_POS" connection.autoconnect yes
+nmcli connection modify "CERMOB_POS" wifi-sec.key-mgmt wpa-psk
+nmcli connection modify "CERMOB_POS" 802-11-wireless-security.psk "cermobpos123"
 
 echo 'function cd { builtin cd "$@" && ls --color=auto; }' >> /home/rock/.bashrc
 
